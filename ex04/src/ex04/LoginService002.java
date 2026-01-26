@@ -24,23 +24,18 @@ public class LoginService002 {
 	public boolean userCheck() {
 		return (loginDto.getUsername() == null) ? true : false;
 	}
-	
 	public void inputUsernamePassword(String msg) {
 		System.out.println( msg );
 		username = input.next();
 		password = input.next();
 	}
-	
 	public void login() {
-		
 		if( userCheck() ) {
 			System.out.println("회원가입하세요");
 			return;
 		}
 		inputUsernamePassword("로그인 할 id, pwd입력");
-		
 		int result = loginCheck();
-		
 		if( result == 0 ) {
 			System.out.println("인증 통과");
 		}else if(result == 1) {
@@ -52,7 +47,6 @@ public class LoginService002 {
 	public void register() {
 		if( userCheck() ) {
 			inputUsernamePassword("가입 id, pwd입력");
-			
 			loginDto.setUsername(username);
 			loginDto.setPassword(password);
 			System.out.println("가입 되었습니다!!!");
