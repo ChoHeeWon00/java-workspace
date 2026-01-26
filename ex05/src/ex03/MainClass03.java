@@ -10,7 +10,6 @@ class Test03{
 	public String toString() {
 		return "[" + num + "," + name + "]";
 	}
-	
 }
 public class MainClass03 {
 	public static void main(String[] args) {
@@ -20,6 +19,7 @@ public class MainClass03 {
 		
 		System.out.println( t.toString() );
 		System.out.println( t );
+		//t.getNmae();, t.getNum();
 		
 		ArrayList<String> arr = new ArrayList<String>();
 		arr.add("111");
