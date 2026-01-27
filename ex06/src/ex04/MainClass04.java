@@ -19,9 +19,7 @@ public class MainClass04 {
 			}
 		};
 		t01.test();
-		
 		Test04 t02 = () -> System.out.println("람다식");
-		
 		t02.test();
 	}
 }
