@@ -1,5 +1,10 @@
 package quiz;
 
+import java.util.List;
+import java.util.Optional;
+
+import quiz.exception.MemberDuplicateException;
+
 public class MemberService {
 	/*
 	 repository 연동 후 결과 받아옴
@@ -8,4 +13,53 @@ public class MemberService {
 	 
 	 예외 클래스도 각각 만들어서 진행하세요
 	 */
+	MemberRepository memberRepository;
+	public MemberService() {
+		memberRepository = new MemberRepository();
+	}
+	public void save( MemberDto memberDto ){
+		//System.out.println("service : " + memberDto );
+		boolean bool = 
+				memberRepository.existsByUsername( 
+										memberDto.getUsername() );
+		//System.out.println("service : " + bool);
+		if( bool )
+			throw new MemberDuplicateException("존재하는 id 입니다");
+		memberRepository.save( memberDto );
+	}
+	public List<MemberDto> getList() {
+		//List<MemberDto> list = memberRepository.findAll();
+		//return list;
+		return memberRepository.findAll();
+	}
+	public MemberDto getMember( String username ) {
+		/*
+		boolean bool = memberRepository.existsByUsername( username );
+		//username이 존재하면 true, 없으면 false
+		if( bool == false ) // !bool
+			throw new RuntimeException("해당 사용자는 없습니다!!!");
+		*/
+		//Optional<MemberDto> opt = memberRepository.findByUsername( username );
+		//return opt.orElseThrow();
+		return memberRepository
+				.findByUsername(username)
+				.orElseThrow( () -> new RuntimeException("해당 사용자 없음!!") );
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
