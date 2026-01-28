@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import quiz.exception.MemberDuplicateException;
+import quiz.exception.MemberNotFoundException;
 
 public class MainClass {
 	/*
@@ -41,13 +42,33 @@ public class MainClass {
 					memberDto = memberService.getMember( username );
 					System.out.println("--- 검색 결과 ---");
 					System.out.println( memberDto );
-					
-				} catch (RuntimeException e) {
+				} catch (MemberNotFoundException e) {
 					System.out.println( e.getMessage() );
 				}
 				break;
-			case 3 : break;
-			case 4 : break;
+			case 3 : 
+				System.out.println("아이디, 비밀번호, 이름 입력");
+				username = input.next();
+				password = input.next();
+				name = input.next();
+				memberDto = new MemberDto(username, password, name);
+				try {
+					memberService.save( username, memberDto );
+					System.out.println("수정 성공");
+				} catch (MemberNotFoundException e) {
+					System.out.println( e.getMessage() );
+				}
+				break;
+			case 4 : 
+				System.out.println("삭제 아이디 입력");
+				username = input.next();
+				try {
+					memberService.delete( username );
+					System.out.println(username+"님 삭제 성공");
+				} catch (MemberNotFoundException e) {
+					System.out.println( "삭제할 사용자 없음" );
+				}
+				break;
 			case 5 : 
 				List<MemberDto> list = memberService.getList();
 				for(MemberDto dto : list) {

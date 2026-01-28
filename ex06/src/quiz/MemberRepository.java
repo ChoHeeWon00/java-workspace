@@ -44,3 +44,10 @@ public class MemberRepository {
 		return list.removeIf(data -> data.getUsername().equals(username));
 	}
 }
+
+
+
+
+
+
+

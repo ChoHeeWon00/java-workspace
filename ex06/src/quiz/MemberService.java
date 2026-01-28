@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import quiz.exception.MemberDuplicateException;
+import quiz.exception.MemberNotFoundException;
 
 public class MemberService {
 	/*
@@ -43,9 +44,29 @@ public class MemberService {
 		//return opt.orElseThrow();
 		return memberRepository
 				.findByUsername(username)
-				.orElseThrow( () -> new RuntimeException("해당 사용자 없음!!") );
+				.orElseThrow( 
+						//() -> new MemberNotFoundException() 
+						//MemberNotFoundException::new
+						() -> new MemberNotFoundException("사용자 없음!!")
+					);
+	}
+	public void delete( String username ) {
+		//사용자 있음 : true, 사용자 없음 : false
+		//memberRepository.existsByUsername(username) == false
+		if( !memberRepository.existsByUsername(username) )
+			throw new MemberNotFoundException();
+		memberRepository.deleteByUsername(username);
+	}
+	public void save(String username, MemberDto memberDto ) {
+		//memberRepository.save(username, memberDto) == false
+		if( !memberRepository.save(username, memberDto) )
+			throw new MemberNotFoundException("수정할 아이디 없음");
 	}
 }
+
+
+
+
 
 
 
